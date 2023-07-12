@@ -35,13 +35,10 @@ public class AdminController {
     }
 
     @GetMapping("/addNewUser")
-    public String addNewUser(ModelMap model) {
-        User user = new User();
-        Collection<Role> roles = roleService.getAllRoles();
-        model.addAttribute("user", user);
-        model.addAttribute("roles", roles);
-        return "newUserInfo";
-    }
+   public String addNewUser(@ModelAttribute("user") User user,ModelMap model) {
+       model.addAttribute("roles", roleService.getAllRoles());
+       return "newUserInfo";
+   }
 
     @PostMapping("/")
     public String saveUser(@ModelAttribute("user") User user) {
@@ -52,6 +49,7 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String editUser(ModelMap model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.show(id));
+        model.addAttribute("roles", roleService.getAllRoles());
         return "/editUser";
     }
 

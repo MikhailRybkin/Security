@@ -3,7 +3,8 @@ package ru.kata.spring.boot_security.demo.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "roles",
+        uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,5 +33,9 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAuthorities() {
+        return getName();
     }
 }
